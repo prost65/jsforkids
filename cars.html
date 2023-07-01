@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Гонки</title>
+</head>
+<body>
+  <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
+  <script>
+    // создаем конструктор
+    let Car = function (x,y) {
+      this.x = x;
+      this.y = y;
+      this.draw()
+    };
+
+
+    // добавляем метод draw к прототипу конструктора Car
+     Car.prototype.draw = function () {
+      let carHtml = '<img src="https://nostarch.com/images/car.png">';
+      this.carElement = $ (carHtml)
+      this.carElement.css({
+        position: 'absolute',
+        left: this.x,
+        top: this.y
+      });
+      $('body').append(this.carElement)
+     }
+
+     let carSpeed = setInterval(function () {
+      let randomSpeedTesla = Math.floor(Math.random() * 7);
+      let randomSpeedNissan = Math.floor(Math.random() * 7);
+      tesla.moveRight(randomSpeedTesla)
+      nissan.moveRight(randomSpeedNissan)
+    }, 30);
+
+    function clickStop() {
+      clearInterval(carSpeed);
+    }
+    $(document).click(clickStop) //остановка по клику
+
+
+    // добавляем метод moveRight и остальные
+    Car.prototype.moveRight = function (speed) {
+      this.x += speed
+      this.carElement.css ({
+        left: this.x,
+        top: this.y
+      })
+    }
+    Car.prototype.moveLeft = function (speed) {
+      this.x -= speed
+      this.carElement.css ({
+        left: this.x,
+        top: this.y
+      })
+    }
+    Car.prototype.moveUp = function (speed) {
+      this.y -= speed
+      this.carElement.css ({
+        left: this.x,
+        top: this.y
+      })
+    }
+    Car.prototype.moveDown = function (speed) {
+      this.y += speed
+      this.carElement.css ({
+        left: this.x,
+        top: this.y
+      })
+    }
+
+     let tesla = new Car (20,20)
+     let nissan = new Car (20,100)
+    //  let kira = new Car
+
+    //  tesla.draw()
+    //  nissan.draw()
+
+     nissan.moveRight(carSpeed)
+
+
+  </script>
+</body>
+</html>

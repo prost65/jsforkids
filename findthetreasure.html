@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Найди клад!</title>
+</head>
+<body>
+  <h1 id="heading">Найди клад!</h1>
+  <img src="https://nostarch.com/images/treasuremap.png" id="map" width=800 height=800>
+  <p id="distance"></p>
+  <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
+  <script>
+    // получение случайных значений
+    let getRandomNumber = function (size) {
+      return Math.floor(Math.random() * size)
+    }
+
+    // задаем координаты клада
+    let width = 800;
+    let height = 800;
+    let target = {
+      x: getRandomNumber(width),
+      y: getRandomNumber(height)
+    }
+
+    // вычисляем расстояние от клика до клада
+    let getDistance = function (event, target) {
+    let diffX = event.offsetX - target.x
+    let diffY = event.offsetY - target.y
+    return Math.sqrt((diffX * diffX) + (diffY * diffY))
+    }
+
+    // проверяем насколько игрок близок к цели
+    let getDistanceHint = function (distance) {
+        if (distance < 40) {
+          return 'Обожжешься!'
+        } else if (distance < 50) {
+          return 'Очень-очень горячо!'
+        } else if (distance < 60) {
+          return 'Очень горячо!'
+        } else if (distance < 80) {
+          return 'Горячо'
+        } else if (distance < 160) {
+          return 'Тепло'
+        } else if (distance < 320) {
+          return 'Холодно'
+        } else if (distance < 640) {
+          return 'Очень холодно'
+        } else if (distance < 700) {
+          return 'Очень-очень холодно'
+        } else {
+          return 'Замерзнешь!'
+        }
+      }
+
+
+    // обработчик кликов
+    let clicks = 0;
+    $('#map').click(function(event) {
+      clicks++
+
+      // получаем расстояние от места клика до клада
+      let distance = getDistance(event,target)
+      // преобразуем расстояние в подсказку
+      let distanceHint = getDistanceHint(distance)
+      // записываем новую подсказку
+      $('#distance').text(distanceHint)
+      // если клик был близко, то поздравляем с победой
+      if (distance < 30) {
+        alert('Клад найден! Сделано ' + clicks + ' кликов')
+      }
+      // устанавливаем ограничения
+
+      if (clicks === 8) {
+        alert('Острожно, осталость 2 попытки!')
+      } else if (clicks === 9) {
+        alert('Осторожно, осталась 1 плпытка!')
+      } else if (clicks === 10) {
+        // console.log(clicks + 'Это клики из ифа');
+        alert('Конец игры! Слишком много кликов!')
+      }
+    })
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Холст</title>
+</head>
+<body>
+  <canvas id="canvas" width="500" height="300"></canvas>
+  <script>
+    let canvas = document.getElementById('canvas')
+    let ctx = canvas.getContext('2d')
+    // for (let i=0; i<8; i++) {
+    //   ctx.fillRect(i*10, i*10,10,10)
+    // }
+
+    // голова
+    // ctx.fillStyle = 'Purple'
+    // ctx.fillRect(40,0,50,50) //голова
+    // ctx.fillRect(60,50,10,20) //шея
+    // ctx.fillRect(30,70,70,70) //пузо
+    // ctx.fillRect(0,70,130,10) //две руки
+    // ctx.fillRect(30,100,10,80) //левая нога
+    // ctx.fillRect(90,100,10,80) //правая нога
+
+    // земля
+    // ctx.strokeStyle = 'Red'
+    // ctx.lineWidth = 4
+    // ctx.strokeRect(10,180,110,10)
+
+    // флаг
+    // ctx.fillStyle = 'Turquoise'
+    // ctx.fillRect(140, 10, 50, 100)
+    // ctx.fillStyle = 'SkyBlue'
+    // ctx.fillRect(190, 10, 50, 100)
+    // ctx.fillStyle='Blue'
+    // ctx.fillRect(240,10,50,100)
+
+    // крест
+    // ctx.strokeStyle = 'Pink'
+    // ctx.lineWidth = 4
+    // ctx.beginPath ()
+    // ctx.moveTo(10,10)
+    // ctx.lineTo(60,60)
+    // ctx.moveTo(60,10)
+    // ctx.lineTo(10,60)
+    // ctx.stroke()
+
+    // человек
+    // ctx.lineWidth = 4
+    // ctx.strokeRect(20,20,20,20)
+    // ctx.beginPath()
+    // ctx.moveTo(30,40)
+    // ctx.lineTo(30,90) //туловище
+    // ctx.moveTo(30,70)
+    // ctx.lineTo(60,40) //ручка правая
+    // ctx.moveTo(30,70)
+    // ctx.lineTo(0,40) //ручка левая
+    // ctx.moveTo(30,90)
+    // ctx.lineTo(60,120) //ножка раз
+    // ctx.moveTo(30,90)
+    // ctx.lineTo(0,120) //ножка два
+    // ctx.stroke()
+
+    // домик
+    // ctx.fillStyle = 'Blue'
+    // ctx.beginPath()
+    // ctx.moveTo(100,100)
+    // ctx.lineTo(100,60)
+    // ctx.lineTo(130,30)
+    // ctx.lineTo(160,60)
+    // ctx.lineTo(160,100)
+    // ctx.lineTo(100,100)
+    // ctx.fill()
+
+    // кружки
+    // ctx.lineWidth = 2
+    // ctx.strokeStyle = 'Green'
+    // ctx.beginPath()
+    // ctx.arc(50,50,20,0, Math.PI / 2, false)
+    // ctx.stroke()
+    // ctx.beginPath()
+    // ctx.arc(100,50,20, 0, Math.PI, false)
+    // ctx.stroke()
+    // ctx.beginPath()
+    // ctx.arc(150,50,20,0,Math.PI * 2,false)
+    // ctx.stroke()
+
+    // функция которая рисует кружки
+    // let circle = function (x, y, r) {
+    //   ctx.beginPath()
+    //   ctx.arc(x, y, r, 0, Math.PI * 2, false)
+    //   ctx.stroke()
+    // }
+    // ctx.lineWidth = 9
+    // ctx.strokeStyle = 'Red'
+    // circle(150,150, 100)
+
+    // функция которая рисует кружки + заполняет цветом
+    // let circle = function (x, y, r, fillCircle) {
+    //   ctx.beginPath()
+    //   ctx.arc(x, y, r, 0, Math.PI * 2, false)
+    //   ctx.stroke()
+    //   if (fillCircle === true) {
+    //     ctx.fill()
+    //   }
+    // }
+    // ctx.lineWidth = 9
+    // ctx.strokeStyle = 'Red'
+    // circle(150,150, 100, true)
+
+    // снеговик с помощью функции
+    // ctx.lineWidth = 3
+    // circle(100,100, 30, false)
+    // circle(100,180, 50, false)
+    // circle(90,95, 4, true)
+    // circle(110,95, 4, true)
+    // ctx.fillStyle = 'Orange'
+    // circle(100,107, 4, true)
+    // ctx.fillStyle = 'Black'
+    // circle(100,200, 4, true)
+    // circle(100,180, 4, true)
+    // circle(100,160, 4, true)
+
+    // функция которая рисует снеговика в указанном месте
+    // let drawSnowman = function (x,y) {
+    //   let circle = function (x, y, r, fillCircle) {
+    //   ctx.lineWidth = 3
+    //   ctx.beginPath()
+    //   ctx.arc(x, y, r, 0, Math.PI * 2, false)
+    //   ctx.stroke()
+    //   if (fillCircle === true) {
+    //     ctx.fill()
+    //   }
+    // }
+    //   circle(x,y, 30, false)
+    //   circle(x,y+80, 50, false)
+    //   circle(x-10,y-5, 4, true)
+    //   circle(x+10,y-5, 4, true)
+    //   ctx.fillStyle = 'Orange'
+    //   circle(x,y+7, 4, true)
+    //   ctx.fillStyle = 'Black'
+    //   circle(x,y+100, 4, true)
+    //   circle(x,y+80, 4, true)
+    //   circle(x,y+60, 4, true)
+    // }
+    // drawSnowman(100,150)
+
+    // функция которая соединяет точки массива
+    let points = [[50,50],[50,100],[100,100],[100,50],[50,50]]
+    let mysteryPoints = [[50,50],[50,100],[25,120],[100,50],[70,90],[100,90],[70,120]]
+
+    let drawPoints = function(mysteryPoints) {
+      ctx.beginPath()
+      for (let i=0; i<6; i++) {
+        ctx.moveTo(mysteryPoints[i][0],mysteryPoints[i][1])
+        ctx.lineTo(mysteryPoints[i+1][0],mysteryPoints[i+1][1])
+        console.log(mysteryPoints[i])
+      }
+      ctx.stroke()
+    }
+    drawPoints(mysteryPoints)
+  </script>
+</body>
+</html>

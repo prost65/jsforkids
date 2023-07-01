@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Виселица</title>
+</head>
+<body>
+  <script>
+    //все слова для отгадывания
+let words = [
+  // "программа",
+  //  "макака",
+  //  "прекрасный",
+  //  "оладушек",
+  // //упражнение - добавить ещё слов
+  //  "акула",
+  //  "волшебник",
+   "банан",
+];
+//наше случайное слово
+let word = words[Math.floor(Math.random() * words.length)];
+
+//пустой массив для отгадываемого слова
+let answerArray = [];
+
+//упражнение - попытки
+let timesToPlay = 5;
+
+//заполнить массив плашками под буквы
+for (let i = 0; i < word.length; i++) {
+  answerArray[i] = "_";
+}
+
+//оставшиеся буквы (будут убывать)
+let remainingLetters = word.length;
+
+//основной игровой цикл
+while (remainingLetters > 0 && timesToPlay > 0 ) {
+  alert(answerArray.join(" ")); //отображение текущего состояния игры - плашечки разделены пробелами
+
+  let guess = prompt("Угадайте букву или нажмите Отмена для выхода из игры."); //обработка введенного ответа - выскакивает стока ввода
+  console.log("\n\n" + timesToPlay +" было попыток");
+  console.log(guess );
+
+  //упражнение - если пользователь введет заглавную букву, то мы преобразуем её в строчную
+  guess = guess.toLowerCase();
+
+  if (guess === null) {
+    break;
+
+  } else if (guess.length !== 1) {
+    //если вводимые данные не равны одной букве, то...
+    alert("Пожалуйста, введите только одну букву.");
+
+  } else {
+    //если вводимые данные равны одной букве
+    //обновление состояния игры - проверяем каждую букву нашего слова
+
+    let check = false;
+
+    for (let j = 0; j < word.length; j++) {
+      if (word[j] === guess && answerArray[j] === "_") {
+        //если индекс буквы совпадает с предполагаемой буквой игрока, то...
+        answerArray[j] = guess; //добавляем в массив ответа букву игрока вместо плашечки
+        remainingLetters--; //оставшиеся буквы убывают
+        check = true;
+      }
+    }
+    if (check === false) {
+    timesToPlay--;
+    }
+
+  }  console.log(timesToPlay +" осталось попыток\n\n");
+  console.log(remainingLetters +" осталось букв\n\n");
+}
+//конец игры
+if (timesToPlay === 0) {
+  alert("Вы проиграли");
+} else {
+  alert(answerArray.join(" "));
+  alert("Отлично! Было загадано слово " + word);
+}
+  </script>
+</body>
+</html>

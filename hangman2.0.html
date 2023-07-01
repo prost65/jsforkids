@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Виселица</title>
+</head>
+<body>
+  <script>
+  //возвращает случайно выбранное слово
+  let pickWord = function () {
+  let wordsArray = [
+    // "программа",
+    // "макака",
+    // "прекрасный",
+    // "оладушек",
+    // "акула",
+    // "волшебник",
+    "банан",
+  ];
+  return wordsArray[Math.floor(Math.random() * wordsArray.length)];
+};
+
+//возращает итоговый массив для заданного слова
+let setupAnswerArray = function (word) {
+  let answerArray = [];
+  for (let i = 0; i < word.length; i++) {
+    answerArray[i] = "_";
+  }
+  return answerArray;
+};
+
+//заполнить массив плашками под буквы
+let showPlayerProgress = function (answerArray) {
+  alert(answerArray.join(" "));
+};
+
+//запращивает ответ у игрока с помощью prompt
+let getGuess = function() {
+  return prompt("Угадайте букву или нажмите Отмена для выхода из игры.");
+}
+
+// Обновляет answerArray согласно ответу игрока (guess)
+// возвращает число, обозначающее, сколько раз буква guess встречается в слове, чтобы можно было обновить значение remainingLetters
+let updateGameState = function (guess, word, answerArray) {
+  let letterNumber = 0
+  for (let j = 0; j < word.length; j++) {
+      if (word[j] === guess) {
+        answerArray[j] = guess;
+        letterNumber++;
+      }
+    }
+  // console.log("Колличество открытых букв " + letterNumber)
+  return letterNumber
+};
+
+// С помощью alert показывает игроку отгаданное слово
+// и поздравляет его с победой
+let showAnswerAndCongratulatePlayer = function (answerArray) {
+  showPlayerProgress(answerArray);
+  // alert("Отлично! Было загадано слово " + answerArray.join(" "));
+  alert("Отлично! Было загадано слово " + word);
+}
+
+
+//Код
+let word = pickWord();
+let answerArray = setupAnswerArray(word);
+let remainingLetters = word.length;
+
+while (remainingLetters > 0) {
+  showPlayerProgress(answerArray);
+  let guess = getGuess();
+  if (guess === null) {
+    break;
+  } else if (guess.length !== 1) {
+    alert("Пожалуйства, введите одну букву");
+  } else {
+    let correctGuesses = updateGameState(guess, word, answerArray);
+    remainingLetters -= correctGuesses;
+    console.log("remainingLetters(оставшиеся) : " + remainingLetters);
+    console.log("correctGuesses(открытые) : " + correctGuesses);
+    // console.log("remainingLetters -= correctGuesses это будет " + `${remainingLetters -= correctGuesses}`);
+  }
+}
+showAnswerAndCongratulatePlayer(answerArray);
+  </script>
+</body>
+</html>
+

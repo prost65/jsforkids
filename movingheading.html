@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UAmpatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Моя не первая, но настоящая страничка</title>
+</head>
+<body>
+  <h1 id="heading">Привет, мир!</h1>
+  <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
+  <script>
+
+let leftOffset = 0;
+let topOffset = 0;
+let moveHeading = function () {
+//вправо
+  if (leftOffset < 200 && topOffset === 0) {
+    $("#heading").offset({ left: leftOffset });
+     leftOffset++;
+  }
+//вниз
+  if (leftOffset === 200 && topOffset < 200) {
+    $("#heading").offset({ top: topOffset });
+     topOffset++;
+  }
+//влево
+  if (leftOffset <= 200 && topOffset === 200) {
+    $("#heading").offset({ left: leftOffset });
+     leftOffset--;
+  }
+//вверх
+  if (leftOffset === 0 && topOffset > 0) {
+    $("#heading").offset({ top: topOffset });
+    topOffset--;
+  }
+};
+
+let intervalID = setInterval(moveHeading, 50);
+// function clickStop() {
+//   clearInterval(intervalID);
+// }
+// $('#heading').click(clickStop) //остановка по клику
+
+  //изменение заголовка
+let clicks = 0
+
+function fastClick() {
+  clearInterval(intervalID);
+  clicks++;
+  $("#heading").text("Нажато " + clicks + " раз");
+  intervalID = setInterval(moveHeading, 30 / (clicks + 1));
+
+
+  // if кликов 10 heading => вы победили
+  if (clicks > 10) {
+    clearInterval(intervalID);
+    $("#heading").text("Вы победили!");
+  }
+}
+
+$("html").click(fastClick)
+  </script>
+</body>
+</html>
